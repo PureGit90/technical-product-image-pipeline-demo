@@ -1,0 +1,11 @@
+sku,name,family,width_mm,height_mm,hole_dia_mm,hole_count,outer_dia_mm,inner_dia_mm,length_mm,thickness_mm,step_file,current_image
+PLT-1001,Mounting plate 120x80,flat_plate,120,80,8,2,,,,,,
+PLT-1002,Mounting plate 200x100,flat_plate,200,100,10,3,,,,,,
+PLT-1003,Mounting plate 90x90,flat_plate,90,90,6,,,,,,,
+BSH-2001,Bronze bushing 30/20,bushing,,,,,30,20,45,,,
+BSH-2002,Steel bushing 50/60,bushing,,,,,50,60,40,,,
+BRK-3001,L-bracket 100x70,l_bracket,100,70,,,,,,5,,
+BRK-3002,L-bracket 150x120,l_bracket,150,120,,,,,,8,,
+GBX-4001,Worm gearbox WG-40,gearbox,,,,,,,,,gbx4001.step,
+VLV-5001,Ball valve DN25,valve,,,,,,,,,,
+PLT-1004,Mounting plate 160x60,flat_plate,160,60,8,2,,,,,,plt1004.jpg
