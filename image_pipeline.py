@@ -80,11 +80,11 @@ def _vdim(x, y1, y2, label):
     return (f"<line x1='{x}' y1='{y1}' x2='{x}' y2='{y2}' {DIM}/>"
             f"<line x1='{x-6}' y1='{y1}' x2='{x+6}' y2='{y1}' {DIM}/>"
             f"<line x1='{x-6}' y1='{y2}' x2='{x+6}' y2='{y2}' {DIM}/>"
-            f"<text x='{x+10}' y='{mid}' {FONT}>{label}</text>")
+            f"<text x='{x-9}' y='{mid}' text-anchor='end' {FONT}>{label}</text>")
 
 
 def _wrap(body, sku, title):
-    return (f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 360' width='480' height='360'>"
+    return (f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 360' style='width:100%;height:auto;max-width:480px'>"
             f"<rect width='480' height='360' fill='white'/>{body}"
             f"<text x='16' y='340' {FONT}>{sku}  |  {title}</text></svg>")
 
@@ -107,9 +107,9 @@ def render_svg(p):
         return _wrap(body, sku, f"Flat plate, {n} x hole {d:g} mm")
     if fam == "bushing":
         od, idm, ln = _f(p, "outer_dia_mm"), _f(p, "inner_dia_mm"), _f(p, "length_mm")
-        scale = min(180 / od, 300 / ln)
+        scale = min(120 / od, 190 / ln)
         r_o, r_i, L = od * scale / 2, idm * scale / 2, ln * scale
-        cx, cy = 110, 150
+        cx, cy = 130, 150
         body = (f"<circle cx='{cx}' cy='{cy}' r='{r_o:.1f}' {LINE}/><circle cx='{cx}' cy='{cy}' r='{r_i:.1f}' {LINE}/>"
                 f"<rect x='250' y='{cy - r_o:.1f}' width='{L:.1f}' height='{2*r_o:.1f}' {LINE}/>"
                 f"<line x1='250' y1='{cy - r_i:.1f}' x2='{250 + L:.1f}' y2='{cy - r_i:.1f}' stroke='#1a1a1a' stroke-dasharray='5,4'/>"
@@ -121,12 +121,12 @@ def render_svg(p):
     if fam == "l_bracket":
         w, h, t = _f(p, "width_mm"), _f(p, "height_mm"), _f(p, "thickness_mm")
         scale = min(260 / w, 220 / h)
-        pw, ph, th, x0, y0 = w * scale, h * scale, max(t * scale, 6), 120, 50
+        pw, ph, th, x0, y0 = w * scale, h * scale, max(t * scale, 6), 130, 50
         pts = f"{x0},{y0} {x0+th},{y0} {x0+th},{y0+ph-th} {x0+pw},{y0+ph-th} {x0+pw},{y0+ph} {x0},{y0+ph}"
         body = (f"<polygon points='{pts}' {LINE}/>"
                 + _hdim(x0, x0 + pw, y0 + ph + 30, f"{w:g} mm")
                 + _vdim(x0 - 30, y0, y0 + ph, f"{h:g} mm")
-                + f"<text x='{x0 + pw + 12}' y='{y0 + ph - th/2:.1f}' {FONT}>t {t:g}</text>")
+                + f"<text x='{x0 + pw + 12}' y='{y0 + ph - th/2:.1f}' {FONT}>t = {t:g} mm</text>")
         return _wrap(body, sku, "L-bracket, side profile")
     raise ValueError(f"no SVG template for family {fam}")
 
